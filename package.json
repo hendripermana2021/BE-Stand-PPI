@@ -1,9 +1,40 @@
 {
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "tbl_users": "npx sequelize-cli model:generate --name tbl_users --attributes name:string,password:string,no_stand:integer,id_role:integer,accessToken:text,refreshToken:text,email:string,real_password:string",
+    "tbl_stuff": "npx sequelize-cli model:generate --name tbl_stuff --attributes name:string,price:double,status:boolean,qty:integer,id_category:integer,id_user:integer,ingridient:text,description:text",
+    "tbl_entry": "npx sequelize-cli model:generate --name tbl_entry --attributes status:boolean,created_by:string,pay_by:string,id_user:integer",
+    "tbl_bucket": "npx sequelize-cli model:generate --name tbl_bucket --attributes name_stuff:string,id_entry:integer,price:double,qty:integer",
+    "tbl_category": "npx sequelize-cli model:generate --name tbl_category --attributes name_category:string",
+    "tbl_role": "npx sequelize-cli model:generate --name tbl_role --attributes name_role:string",
+    "tbl_stuff_img": "npx sequelize-cli model:generaste --name tbl_stuff_img --attributes stuff_id:integer,img_url:string",
+    "seed-user": "npx sequelize-cli seed:generate --name tbl_user",
+    "db:models": "npm run tbl_bucket && npm run tbl_entry && npm run tbl_stuff && npm run tbl_users",
+    "db:create": "npx sequelize db:create",
+    "db:restart": "npm run db:drop && npm run db:create && npm run db:migrate && npm run db:seed && npm run start",
+    "db:start": "npm run db:create && npm run db:migrate && npm run db:seed && npm run start",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:undo": "npx sequelize-cli db:migrate:undo:all",
+    "db:terminate": "node TerminateConnection.js",
+    "db:drop": "npm run db:terminate && npx sequelize-cli db:drop"
   },
+  "type": "module",
   "dependencies": {
-    "express": "^4.21.2"
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7",
+    "sequelize-cli": "^6.6.3",
+    "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
