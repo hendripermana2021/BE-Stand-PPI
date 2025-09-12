@@ -17,7 +17,8 @@
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:undo": "npx sequelize-cli db:migrate:undo:all",
     "db:terminate": "node TerminateConnection.js",
-    "db:drop": "npm run db:terminate && npx sequelize-cli db:drop"
+    "db:drop": "npm run db:terminate && npx sequelize-cli db:drop",
+    "db:droped": "npx sequelize-cli db:drop"
   },
   "type": "module",
   "dependencies": {

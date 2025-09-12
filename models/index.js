@@ -50,7 +50,7 @@ db.tbl_stuff_img = require("./tbl_stuff_img.js")(sequelize, Sequelize);
 
 //Relation for Users
 db.tbl_users.hasMany(db.tbl_stuff, {
-  foreignKey: "id_users",
+  foreignKey: "id_user",
   as: "listMenuUsers",
   sourceKey: "id",
 });

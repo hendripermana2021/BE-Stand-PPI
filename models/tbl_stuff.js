@@ -16,9 +16,6 @@ module.exports = (sequelize, DataTypes) => {
   tbl_stuff.init({
     name: DataTypes.STRING,
     price: DataTypes.DOUBLE,
-    status: DataTypes.BOOLEAN,
-    qty: DataTypes.INTEGER,
-    img: DataTypes.STRING,
     id_category: DataTypes.INTEGER,
     id_user: DataTypes.INTEGER,
     ingridient: DataTypes.TEXT,

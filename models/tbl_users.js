@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   tbl_users.init({
     name: DataTypes.STRING,
+    name_stand: DataTypes.STRING,
     password: DataTypes.STRING,
     no_stand: DataTypes.INTEGER,
     id_role: DataTypes.INTEGER,

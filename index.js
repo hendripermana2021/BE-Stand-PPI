@@ -7,7 +7,7 @@ import EntryRoute from './route/EntryRoute.js'
 const app = express()
 const port = 3000
 
-app.use(express.json()); // 🔥 Wajib biar req.body kebaca
+app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser()); // Kalau pakai cookie
 app.use(bodyParser.json({}));

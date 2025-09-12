@@ -15,15 +15,6 @@ module.exports = {
       price: {
         type: Sequelize.DOUBLE
       },
-      status: {
-        type: Sequelize.BOOLEAN
-      },
-      qty: {
-        type: Sequelize.INTEGER
-      },
-      img: {
-        type: Sequelize.STRING
-      },
       id_category: {
         type: Sequelize.INTEGER
       },
