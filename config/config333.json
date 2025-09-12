@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "hendri",
-    "password": "hendri",
-    "database": "db_ppi",
+    "username": "day",
+    "password": "Nesball7",
+    "database": "db_stand_ppi",
     "host": "147.93.105.35",
     "port": 15400,
     "dialect": "postgres"

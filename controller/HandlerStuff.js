@@ -2,12 +2,19 @@ import db from "../models/index.js";
 import { responseJson } from "../global-function/ResponseJson.js";
 
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs"
 dotenv.config()
 
 const Stuff = db.tbl_stuff
 const Category = db.tbl_category
 const Users = db.tbl_users
 const StuffImage = db.tbl_stuff_img
+
+// Mendapatkan __dirname di ES Module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const getDataStuff = async (req, res) => {
   try {
@@ -69,6 +76,10 @@ export const getDataStuffId = async (req, res) => {
         {
           model: Category,
           as : "category"
+        },
+        {
+          model: StuffImage,
+          as : "listImage"
         }
       ],
     });
@@ -116,34 +127,33 @@ export const deleteStuff = async (req, res) => {
 
 export const registerNewStuff = async (req, res) => {
   try {
-     const { idCategory, name, price, status, qty, ingridient, description, listImg } =
-    req.body;
+    const { idCategory, name, price, status, qty, ingridient, description } = req.body;
 
+    // buat data stuff
     const stuff = await Stuff.create({
       name,
-      id_category : idCategory,
+      id_category: idCategory,
       price,
       status,
       qty,
       ingridient,
-      description
+      description,
     });
 
-    if(listImg.length != 0){
-      const imageList = listImg.map((val) => ({
-        stuff_id : stuff.id,
-        img_url : val.url
+    // kalau ada file yang diupload
+    if (req.files && req.files.length > 0) {
+      const imageList = req.files.map((file) => ({
+        stuff_id: stuff.id,
+        img_url: `/public/images/${file.filename}`, // path simpan di DB
       }));
 
-      // Bulk create image list
       await StuffImage.bulkCreate(imageList);
     }
 
-
-    return responseJson(res, 200, true, "Register Data Users Success", stuff)
+    return responseJson(res, 200, true, "Register Data Stuff Success", stuff);
   } catch (error) {
     console.log(error);
-    return responseJson(res, 500, false, "Error registering " + error.message)
+    return responseJson(res, 500, false, "Error registering " + error.message);
   }
 };
 
@@ -204,29 +214,58 @@ export const UpdateStuff = async (req, res) => {
 export const addNewPhotosToStuff = async (req, res) => {
   try {
     const { id } = req.params;
-    const { listImg } = req.body;
 
-    if(!listImg.length){
-      responseJson(res, 200, true, "Successfully added img")
-    }
-
-    const imageList = listImg.map((val) => ({
-        stuff_id : id,
-        img_url : val.url
+    // kalau ada file yang diupload
+    if (req.files && req.files.length > 0) {
+      const imageList = req.files.map((file) => ({
+        stuff_id: id,
+        img_url: `/public/images/${file.filename}`, // path simpan di DB
       }));
 
-      // Bulk create image list
-    await StuffImage.bulkCreate(imageList);
+      await StuffImage.bulkCreate(imageList);
+    }
 
     return responseJson(
       res,
       200,
       true,
-      "Users Successfully Updated",
-      { data_before, data_update }
+      "Photo Successfully Added"
     );
   } catch (error) {
     console.error(error);
     return responseJson(res, 500, false, `Error add image: ${error.message}`);
+  }
+};
+
+export const deletePhoto = async (req, res) => {
+  try {
+    const { id } = req.params; // id stuff_image
+    const { img_url } = req.body; // "/public/images/xxxx.jpeg"
+
+    if (!img_url) {
+      return responseJson(res, 400, false, "No image URL provided");
+    }
+
+    // Buat path file dari URL
+    // Misal img_url = "/public/images/xxx.jpeg"
+    const relativePath = img_url.replace(/^\/public/, ''); // "/images/xxx.jpeg"
+    const filePath = path.join(__dirname, '../public', relativePath); // sesuaikan folder public
+
+    // Hapus file jika ada
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+
+    // Hapus record dari database
+    await StuffImage.destroy({
+      where: {
+        id: id
+      },
+    });
+
+    return responseJson(res, 200, true, "Image successfully deleted");
+  } catch (error) {
+    console.error(error);
+    return responseJson(res, 500, false, `Error deleting image: ${error.message}`);
   }
 };
