@@ -5,7 +5,10 @@ import bodyParser from 'body-parser'
 import StuffRoute from './route/StuffRoute.js'
 import EntryRoute from './route/EntryRoute.js'
 const app = express()
-const port = 3000
+const PORT = process.env.PORT || 3000; // fallback ke 3000 kalau dijalankan local
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }))
