@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "nodemon index.js",
+    "start-deploy": "node index.js",
     "tbl_users": "npx sequelize-cli model:generate --name tbl_users --attributes name:string,password:string,no_stand:integer,id_role:integer,accessToken:text,refreshToken:text,email:string,real_password:string",
     "tbl_stuff": "npx sequelize-cli model:generate --name tbl_stuff --attributes name:string,price:double,status:boolean,qty:integer,id_category:integer,id_user:integer,ingridient:text,description:text",
     "tbl_entry": "npx sequelize-cli model:generate --name tbl_entry --attributes status:boolean,created_by:string,pay_by:string,id_user:integer",
@@ -12,6 +13,7 @@
     "db:models": "npm run tbl_bucket && npm run tbl_entry && npm run tbl_stuff && npm run tbl_users",
     "db:create": "npx sequelize db:create",
     "db:restart": "npm run db:drop && npm run db:create && npm run db:migrate && npm run db:seed && npm run start",
+    "db:deploy": "npm run db:drop && npm run db:create && npm run db:migrate && npm run db:seed && npm run start-deploy",
     "db:start": "npm run db:create && npm run db:migrate && npm run db:seed && npm run start",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:migrate": "npx sequelize-cli db:migrate",
