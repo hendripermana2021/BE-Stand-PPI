@@ -12,12 +12,12 @@
     "seed-user": "npx sequelize-cli seed:generate --name tbl_user",
     "db:models": "npm run tbl_bucket && npm run tbl_entry && npm run tbl_stuff && npm run tbl_users",
     "db:create": "npx sequelize db:create",
+    "db:drop": "npx sequelize db:drop",
     "db:restart": "npm run db:drop && npm run db:create && npm run db:migrate && npm run db:seed && npm run start",
     "db:migrate": "npx sequelize-cli db:migrate --config config/config.js",
     "db:seed": "npx sequelize-cli db:seed:all --config config/config.js",
     "db:deploy": "npm run db:migrate && npm run db:seed && npm run start-deploy",
-    "db:start": "npm run db:migrate && npm run db:seed && npm run start",
-
+    "db:start": "npm run db:create && npm run db:migrate && npm run db:seed && npm run start",
     "db:undo": "npx sequelize-cli db:migrate:undo:all --config config/config.js"
   },
   "type": "module",
