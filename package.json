@@ -13,7 +13,7 @@
     "db:models": "npm run tbl_bucket && npm run tbl_entry && npm run tbl_stuff && npm run tbl_users",
     "db:create": "npx sequelize db:create",
     "db:restart": "npm run db:drop && npm run db:create && npm run db:migrate && npm run db:seed && npm run start",
-    "db:deploy": "npm run db:drop && npm run db:create && npm run db:migrate && npm run db:seed && npm run start-deploy",
+    "db:deploy": "npm run db:droped && npm run db:create && npm run db:migrate && npm run db:seed && npm run start-deploy",
     "db:start": "npm run db:create && npm run db:migrate && npm run db:seed && npm run start",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:migrate": "npx sequelize-cli db:migrate",
