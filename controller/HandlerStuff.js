@@ -27,6 +27,10 @@ export const getDataStuff = async (req, res) => {
         {
           model: Category,
           as : "category"
+        },
+        {
+          model: StuffImage,
+          as : "listImage"
         }
       ],
     });
@@ -49,6 +53,10 @@ export const getDataStuffByUser = async (req, res) => {
         {
           model: Category,
           as : "category"
+        },
+        {
+          model: StuffImage,
+          as : "listImage"
         }
       ],
       where : {

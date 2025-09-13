@@ -1,15 +1,10 @@
 {
   "development": {
-    "username": "neondb_owner",
-    "password": "npg_GZ3Ihs4HJRkL",
-    "database": "stand_ppi",
-    "host": "ep-curly-grass-adff3dy4-pooler.c-2.us-east-1.aws.neon.tech",
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    }
+    "username": "day",
+    "password": "Nesball7",
+    "database": "db_stand_ppi",
+    "host": "147.93.105.35",
+    "port": 15400,
+    "dialect": "postgres"
   }
 }
