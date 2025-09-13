@@ -14,7 +14,7 @@ export default {
     use_env_variable: "DATABASE_URL",
     dialect: "postgres",
     dialectOptions: {
-      ssl: { rejectUnauthorized: false }, // agar bisa connect ke cloud DB
-    },
+      ssl: false
+    }
   },
 };
