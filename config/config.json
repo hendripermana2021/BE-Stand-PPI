@@ -6,5 +6,9 @@
     "host": "147.93.105.35",
     "port": 15400,
     "dialect": "postgres"
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres"
   }
 }
